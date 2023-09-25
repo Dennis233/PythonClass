@@ -26,10 +26,17 @@ def getNum():
 
 
 def mean(ls):
-    s = 0
+    s = 0.0
     for i in ls:
-        s += i
+        s = s + i
     return s / len(ls)
+
+
+def dev(ls):
+    sdev = 0.0
+    for i in ls:
+        sdev = sdev + (i-mean)**2
+    return sdev
 
 
 print(getNum())

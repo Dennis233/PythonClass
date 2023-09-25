@@ -1,10 +1,31 @@
-TempStr = input('请输入带有符号的温度值：')
+import string
+from nltk.corpus import stopwords
 
-if TempStr[-1] in ['F', 'f']:
-    C = (eval(TempStr[0:-1]) - 32) / 1.8
-    print('转换后的温度是{:.2f}C'.format(C))
-elif TempStr[-1] in ['C', 'c']:
-    F = 1.8 * eval(TempStr[0:-1]) + 32
-    print('转换后的温度是{:.2f}F'.format(F))
-else:
-    print('格式错误')
+
+def getWords():
+    f = open("hamlet.txt").read()  # Read the contents of the file
+    txt = f.lower()  # Convert the text to lowercase
+    for i in string.punctuation:
+        txt = txt.replace(i, ' ')
+    return txt.split()
+
+
+def countWords(words):
+    sw = stopwords.words('english')
+    words = [i for i in words if i not in sw]
+    counts = {}
+    for w in words:
+        counts[w] = counts.get(w, 0) + 1
+    return list(counts.items())
+
+
+def sortWords(iterms: list):
+    iterms.sort(key=lambda x: x[1], reverse=True)
+    for i in range(10):
+        word, count = iterms[i]
+        print('{0:<10}:{1:>5}'.format(word, count))
+
+
+helmet_words = getWords()
+hemlet_count = countWords(helmet_words)
+sortWords(hemlet_count)
